@@ -6,8 +6,8 @@
        "feeds article";
        grid-template-rows: 2em 1fr 1fr;
        grid-template-columns: 1fr 3fr;
-       height:100vh;
-       width: 100vw;
+       height:100%;
+       width: 100%;
    }
    #header {
        grid-area: head;
