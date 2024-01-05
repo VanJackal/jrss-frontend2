@@ -26,6 +26,7 @@
 
 <script>
     import * as api from "$lib/api/index" //Shouldn't need `index` here not sure why webstorm is complaining about it
+    import Feeds from "./Feeds.svelte";
 </script>
 
 
@@ -34,7 +35,7 @@
 
     </div>
     <div id="feeds">
-
+        <Feeds/>
     </div>
     <div id="articles-list">
 
