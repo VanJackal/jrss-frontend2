@@ -1,37 +1,18 @@
 <script>
     import {selected} from "$lib/stores/feeds.js";
-    let feeds = [
-        {
-            title:"test",
-            unread:10,
-            _id:"1"
-        },
-        {
-            title:"test",
-            unread:10,
-            _id:"2"
-        },
-        {
-            title:"test",
-            unread:10,
-            _id:"3"
-        },
-        {
-            title:"test",
-            unread:10,
-            _id:"4"
-        },
-        {
-            title:"test",
-            unread:10,
-            _id:"5"
-        },
-    ]
+    import {getFeeds} from "$lib/api/feeds.js";
+
+    let feeds = fetchFeeds()
+
 
     const handleClick = (id) => {
         return () => {
             selected.set(id);
         }
+    }
+
+    function fetchFeeds(){
+        return (async () => {feeds = await getFeeds()})();
     }
 </script>
 
@@ -53,14 +34,17 @@
 </style>
 
 <div class="feeds">
-    {#each feeds as feed}
-        <div class="feed-item" class:selected={feed._id === $selected} on:click={handleClick(feed._id)}>
-            <div class="title">
-                {feed.title}
+    {#await feeds}
+    {:then feeds}
+        {#each feeds as feed}
+            <div class="feed-item" class:selected={feed._id === $selected} on:click={handleClick(feed._id)}>
+                <div class="title">
+                    {feed.title}
+                </div>
+                <div class="unread" >
+                    {feed.unread}
+                </div>
             </div>
-            <div class="unread" >
-                {feed.unread}
-            </div>
-        </div>
-    {/each}
+        {/each}
+    {/await}
 </div>

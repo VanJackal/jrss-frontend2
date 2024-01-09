@@ -1,5 +1,5 @@
 import {PUBLIC_API} from "$env/static/public";
-import axios from 'axios'
+import axios from './axiosWrap.js'
 
 export const login = async (username, password) => {
     return axios.post(PUBLIC_API + "/users/login", {
