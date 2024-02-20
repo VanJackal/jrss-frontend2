@@ -1,6 +1,7 @@
 <script>
     import {selected} from "$lib/stores/feeds.js";
     import {getFeeds} from "$lib/api/feeds.js";
+    import FeedsHeader from "./FeedsHeader.svelte";
 
     let feeds = fetchFeeds()
 
@@ -34,17 +35,20 @@
 </style>
 
 <div class="feeds">
-    {#await feeds}
-    {:then feeds}
-        {#each feeds as feed}
-            <div class="feed-item" class:selected={feed._id === $selected} on:click={handleClick(feed._id)}>
-                <div class="title">
-                    {feed.title}
+    <FeedsHeader/>
+    <div class="feeds-list">
+        {#await feeds}
+        {:then feeds}
+            {#each feeds as feed}
+                <div class="feed-item" class:selected={feed._id === $selected} on:click={handleClick(feed._id)}>
+                    <div class="title">
+                        {feed.title}
+                    </div>
+                    <div class="unread" >
+                        {feed.unread}
+                    </div>
                 </div>
-                <div class="unread" >
-                    {feed.unread}
-                </div>
-            </div>
-        {/each}
-    {/await}
+            {/each}
+        {/await}
+    </div>
 </div>

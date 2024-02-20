@@ -2,6 +2,8 @@
     :global(:root) {
         --background: #222831;
         --light-background: #393e46;
+        --lighter-background: #40454d;
+        --dark-background: #1d242d;
         --text: #f2f2f2;
         --accent: #f96d00;
     }
