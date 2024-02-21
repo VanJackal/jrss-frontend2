@@ -10,3 +10,9 @@ export const getFeeds = async () => {
         return []
     }
 }
+
+export const updateFeeds = async () => {
+    const res = await axios.post(PUBLIC_API + "/util/feeds/refresh")
+    console.debug(res)
+    return res.data
+}

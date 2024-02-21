@@ -1,20 +1,22 @@
-<script>
+<script lang="ts">
     import {selected} from "$lib/stores/feeds.js";
     import {getFeeds} from "$lib/api/feeds.js";
     import FeedsHeader from "./FeedsHeader.svelte";
 
-    let feeds = fetchFeeds()
+    let feeds: Promise<any[]>;
 
 
-    const handleClick = (id) => {
+    const handleClick = (id:string) => {
         return () => {
             selected.set(id);
         }
     }
 
     function fetchFeeds(){
-        return (async () => {feeds = await getFeeds()})();
+        feeds = getFeeds()
     }
+
+    fetchFeeds()
 </script>
 
 <style>
@@ -35,7 +37,7 @@
 </style>
 
 <div class="feeds">
-    <FeedsHeader/>
+    <FeedsHeader fetchFeeds={fetchFeeds}/>
     <div class="feeds-list">
         {#await feeds}
         {:then feeds}

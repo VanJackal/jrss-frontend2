@@ -1,11 +1,17 @@
-<script>
+<script lang="ts">
     import RefreshCw from "lucide-svelte/icons/refresh-cw";
     import PlusSquare from "lucide-svelte/icons/plus-square";
     import Trash2 from "lucide-svelte/icons/trash-2";
     import IconButton from "./IconButton.svelte";
 
-    function handleRefreshButton() {
-        console.log("Test")
+    import {updateFeeds} from "$lib/api/feeds.js";
+
+    let fetchFeeds:Function;
+    export {fetchFeeds}
+
+    async function handleRefreshButton() {
+        await updateFeeds()
+        await fetchFeeds();
     }
 </script>
 <style>
