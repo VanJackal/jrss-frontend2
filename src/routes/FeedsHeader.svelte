@@ -5,7 +5,9 @@
     import IconButton from "./IconButton.svelte";
 
     import {updateFeeds} from "$lib/api/feeds.js";
+    import AddFeedDialog from "./AddFeedDialog.svelte";
 
+    let showAddFeed:boolean = false;
     let fetchFeeds:Function;
     export {fetchFeeds}
 
@@ -24,14 +26,18 @@
     }
 </style>
 <div class="feeds-header">
+    <!-- Refresh Button -->
     <IconButton on:click={handleRefreshButton}>
         <RefreshCw />
     </IconButton>
-    <IconButton>
+    <!-- Add Feed -->
+    <IconButton on:click={() => showAddFeed = true}>
         <PlusSquare />
     </IconButton>
+    <!-- Delete Feed -->
     <IconButton>
         <Trash2 />
     </IconButton>
 </div>
 
+<AddFeedDialog bind:showDialog={showAddFeed}/>
