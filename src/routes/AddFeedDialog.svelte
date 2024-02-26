@@ -10,6 +10,15 @@
         display: flex;
         flex-direction: column;
     }
+    .input-container {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+    }
+    #desc {
+        width: 400px;
+        height: 200px;
+    }
 </style>
 
 <Modal bind:showModal={showDialog} title="Add Feed">
@@ -26,9 +35,11 @@
                 <input id="title">
             </div>
             <div class="input-container">
-                <label for="url">Feed URL</label>
-                <input id="url">
+                <label for="tag">Short Name</label>
+                <input id="tag">
             </div>
+            <label for="desc">Description</label>
+            <textarea id="desc"/>
         {/if}
 
 
