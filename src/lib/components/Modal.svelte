@@ -2,7 +2,7 @@
     export let showModal:boolean;
     export let title:string = "";
 
-    let dialog:HTMLDialogElement;
+    export let dialog:HTMLDialogElement;
     $: if (dialog && showModal) dialog.showModal();
 </script>
 
