@@ -1,6 +1,6 @@
 <script lang="ts">
     import {selected} from "$lib/stores/feeds.js";
-    import {getFeeds} from "$lib/api/feeds.js";
+	import {getFeeds, updateFeeds} from "$lib/api/feeds.js";
     import FeedsHeader from "./FeedsHeader.svelte";
 
     let feeds: Promise<any[]>;
@@ -13,6 +13,7 @@
     }
 
     function fetchFeeds(){
+		updateFeeds()
         feeds = getFeeds()
     }
 
@@ -37,7 +38,7 @@
 </style>
 
 <div class="feeds">
-    <FeedsHeader fetchFeeds={fetchFeeds}/>
+    <FeedsHeader refreshFeeds={fetchFeeds}/>
     <div class="feeds-list">
         {#await feeds}
         {:then feeds}

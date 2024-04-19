@@ -4,17 +4,11 @@
     import Trash2 from "lucide-svelte/icons/trash-2";
     import IconButton from "./IconButton.svelte";
 
-    import {updateFeeds} from "$lib/api/feeds.js";
     import AddFeedDialog from "./AddFeedDialog.svelte";
 
     let showAddFeed:boolean = false;
-    let fetchFeeds:Function;
-    export {fetchFeeds}
-
-    async function handleRefreshButton() {
-        await updateFeeds()
-        await fetchFeeds();
-    }
+    let refreshFeeds:Function;
+    export {refreshFeeds}
 </script>
 <style>
     .feeds-header {
@@ -27,7 +21,7 @@
 </style>
 <div class="feeds-header">
     <!-- Refresh Button -->
-    <IconButton on:click={handleRefreshButton}>
+    <IconButton on:click={refreshFeeds}>
         <RefreshCw />
     </IconButton>
     <!-- Add Feed -->
@@ -40,4 +34,4 @@
     </IconButton>
 </div>
 
-<AddFeedDialog bind:showDialog={showAddFeed}/>
+<AddFeedDialog on:feedAdded={refreshFeeds} bind:showDialog={showAddFeed}/>
