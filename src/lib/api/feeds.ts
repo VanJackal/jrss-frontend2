@@ -1,6 +1,9 @@
 import {PUBLIC_API} from "$env/static/public";
 import axios from "./axiosWrap.js";
 
+//todo these should wrap the http errors and add context
+//todo the ui needs a generic top level error handler (should just toast with the error)
+
 export type Feed = {
     url:string,
     title:string,
@@ -18,10 +21,29 @@ export const getFeeds = async () => {
     }
 }
 
+export const removeFeed = async (id: string) => {
+    await axios.delete(PUBLIC_API + "/feeds/" + id)
+}
+
+export const getFeed = async (id: string):Promise<Feed> => {
+    const res = await axios.get(PUBLIC_API + "/feeds/" + id)
+    const data = res.data
+    return {
+        url:data.link,
+        title: data.title,
+        description: data.description,
+        shortTitle: data.shortTitle,
+    }
+}
+
 export const updateFeeds = async () => {
-    const res = await axios.post(PUBLIC_API + "/util/feeds/refresh")
-    console.debug(res)
-    return res.data
+    try{
+        const res = await axios.post(PUBLIC_API + "/util/feeds/refresh")
+        console.debug(res)
+        return res.data
+    } catch (e) {
+        return null
+    }
 }
 
 export const addFeed = async ({url, title, shortTitle, description}:Feed) => {

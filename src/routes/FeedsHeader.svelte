@@ -5,10 +5,12 @@
     import IconButton from "./IconButton.svelte";
 
     import AddFeedDialog from "./AddFeedDialog.svelte";
+	import RemoveFeedDialog from "./RemoveFeedDialog.svelte";
 
     let showAddFeed:boolean = false;
     let refreshFeeds:Function;
     export {refreshFeeds}
+	let showRemoveFeed:boolean = false;
 </script>
 <style>
     .feeds-header {
@@ -29,9 +31,10 @@
         <PlusSquare />
     </IconButton>
     <!-- Delete Feed -->
-    <IconButton>
+    <IconButton on:click={() => showRemoveFeed = true}>
         <Trash2 />
     </IconButton>
 </div>
 
 <AddFeedDialog on:feedAdded={refreshFeeds} bind:showDialog={showAddFeed}/>
+<RemoveFeedDialog on:feedRemoved={refreshFeeds} bind:showDialog={showRemoveFeed}/>
