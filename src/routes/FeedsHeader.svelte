@@ -6,11 +6,17 @@
 
     import AddFeedDialog from "./AddFeedDialog.svelte";
 	import RemoveFeedDialog from "./RemoveFeedDialog.svelte";
+	import {Pencil} from "lucide-svelte";
+	import EditFeedDialog from "./EditFeedDialog.svelte";
+	import {selected} from "$lib/stores/feeds";
 
+	//todo switch this to an enum maybe
     let showAddFeed:boolean = false;
+	let showRemoveFeed:boolean = false;
+	let showEditFeed:boolean = false;
+
     let refreshFeeds:Function;
     export {refreshFeeds}
-	let showRemoveFeed:boolean = false;
 </script>
 <style>
     .feeds-header {
@@ -34,7 +40,12 @@
     <IconButton on:click={() => showRemoveFeed = true}>
         <Trash2 />
     </IconButton>
+    <!-- Edit Feed -->
+    <IconButton on:click={() => showEditFeed = true}>
+        <Pencil />
+    </IconButton>
 </div>
 
 <AddFeedDialog on:feedAdded={refreshFeeds} bind:showDialog={showAddFeed}/>
 <RemoveFeedDialog on:feedRemoved={refreshFeeds} bind:showDialog={showRemoveFeed}/>
+<EditFeedDialog on:feedEdited={refreshFeeds} bind:showDialog={showEditFeed} selected={$selected}/>

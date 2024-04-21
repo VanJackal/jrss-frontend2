@@ -25,14 +25,18 @@ export const removeFeed = async (id: string) => {
     await axios.delete(PUBLIC_API + "/feeds/" + id)
 }
 
-export const getFeed = async (id: string):Promise<Feed> => {
-    const res = await axios.get(PUBLIC_API + "/feeds/" + id)
-    const data = res.data
-    return {
-        url:data.link,
-        title: data.title,
-        description: data.description,
-        shortTitle: data.shortTitle,
+export const getFeed = async (id: string):Promise<Feed|null> => {
+    try {
+        const res = await axios.get(PUBLIC_API + "/feeds/" + id)
+        const data = res.data
+        return {
+            url:data.link,
+            title: data.title,
+            description: data.description,
+            shortTitle: data.shortTitle,
+        }
+    } catch (e){
+        return null
     }
 }
 
@@ -65,4 +69,18 @@ export const getFeedDetails = async (url:string):Promise<Feed> => {
         description:data.description,
         shortTitle:"",
     };
+}
+
+export const updateFeed = async (id:string, {url, title, shortTitle, description}:Feed) => {
+    try {
+        await axios.patch(PUBLIC_API + "/feeds/"+id, {
+            link:url,
+            title:title,
+            shortTitle:shortTitle,
+            description:description
+        })
+
+    } catch (e) {
+        throw new APIError("Failed to update feed")
+    }
 }

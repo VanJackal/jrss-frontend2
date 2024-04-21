@@ -1,3 +1,8 @@
+<script lang="ts">
+    const handleError = (error) => {
+        console.log(error)
+    }
+</script>
 <style>
     :global(:root) {
         --background: #222831;
@@ -17,5 +22,6 @@
         font-family: sans-serif;
     }
 </style>
+<svelte:window on:error={handleError}/>
 
 <slot/>
