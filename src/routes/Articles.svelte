@@ -14,6 +14,9 @@
     thead tr {
         border-bottom: 3px solid var(--lighter-background);
     }
+    tbody {
+        width: 100%;
+    }
 </style>
 
 <table>
