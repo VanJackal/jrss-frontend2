@@ -11,6 +11,12 @@ export type Feed = {
     description:string
 }
 
+export type ArticleEntry = {
+    title:string,
+    unread:boolean,
+    date:Date
+}
+
 export const getFeeds = async () => {
     try {
         const res = await axios.get(PUBLIC_API + "/feeds/")

@@ -17,6 +17,7 @@
    }
    #articles-list {
        grid-area: list;
+       width: 100%;
    }
    #article {
        grid-area: article;
@@ -25,8 +26,8 @@
 </style>
 
 <script>
-    import * as api from "$lib/api/index" //Shouldn't need `index` here not sure why webstorm is complaining about it
     import Feeds from "./Feeds.svelte";
+    import Articles from "./Articles.svelte";
 </script>
 
 
@@ -38,7 +39,7 @@
         <Feeds/>
     </div>
     <div id="articles-list">
-
+        <Articles/>
     </div>
     <div id="article">
 
