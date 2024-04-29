@@ -1,6 +1,6 @@
 <script lang="ts">
     import Modal from "$lib/components/Modal.svelte";
-	import {addFeed, type Feed, getFeedDetails} from "$lib/api/feeds"
+	import {addFeed, type FeedDetails, getFeedDetails} from "$lib/api/feeds"
 	import {createEventDispatcher} from "svelte";
     export let showDialog:boolean;
 
@@ -22,7 +22,7 @@
             reset()
             dispatch('feedAdded')
         } else {
-			const feed:Feed = await getFeedDetails(url);
+			const feed:FeedDetails = await getFeedDetails(url);
 			({url, title, description, shortTitle} = feed);
             showAll = true;
         }

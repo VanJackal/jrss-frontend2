@@ -2,14 +2,14 @@
     import Modal from "$lib/components/Modal.svelte"
 	import {createEventDispatcher} from "svelte";
 	import {feedId} from "$lib/stores/feeds";
-	import {type Feed, getFeed, removeFeed} from "$lib/api/feeds";
+	import {type FeedDetails, getFeed, removeFeed} from "$lib/api/feeds";
 
 	export let showDialog:boolean
 
     let dialog:HTMLDialogElement
     let dispatch = createEventDispatcher()
 
-    let feed:Feed|null;
+    let feed:FeedDetails|null;
 
 	feedId.subscribe(async (id:string) => {
 		if(id?.length > 0) {

@@ -5,7 +5,7 @@ import {APIError} from "./APIError"
 //todo these should wrap the http errors and add context
 //todo the ui needs a generic top level error handler (should just toast with the error)
 
-export type Feed = {
+export type FeedDetails = {
     url:string,
     title:string,
     shortTitle:string,
@@ -34,7 +34,7 @@ export const removeFeed = async (id: string) => {
     await axios.delete(PUBLIC_API + "/feeds/" + id)
 }
 
-export const getFeed = async (id: string):Promise<Feed|null> => {
+export const getFeed = async (id: string):Promise<FeedDetails|null> => {
     try {
         const res = await axios.get(PUBLIC_API + "/feeds/" + id)
         const data = res.data
@@ -45,6 +45,8 @@ export const getFeed = async (id: string):Promise<Feed|null> => {
             shortTitle: data.shortTitle,
         }
     } catch (e){
+        //throw new APIError("Failed to get Feed")
+        //todo this should throw the error
         return null
     }
 }
@@ -59,7 +61,7 @@ export const updateFeeds = async () => {
     }
 }
 
-export const addFeed = async ({url, title, shortTitle, description}:Feed) => {
+export const addFeed = async ({url, title, shortTitle, description}:FeedDetails) => {
     const res = await axios.post(PUBLIC_API + "/feeds/",{
         link:url,
         title:title,
@@ -69,7 +71,7 @@ export const addFeed = async ({url, title, shortTitle, description}:Feed) => {
     return res.data;
 }
 
-export const getFeedDetails = async (url:string):Promise<Feed> => {
+export const getFeedDetails = async (url:string):Promise<FeedDetails> => {
     const res = await axios.post(PUBLIC_API + "/util/feeds/info",{url:url})
     const data = res.data
     return {
@@ -80,7 +82,7 @@ export const getFeedDetails = async (url:string):Promise<Feed> => {
     };
 }
 
-export const updateFeed = async (id:string, {url, title, shortTitle, description}:Feed) => {
+export const updateFeed = async (id:string, {url, title, shortTitle, description}:FeedDetails) => {
     try {
         await axios.patch(PUBLIC_API + "/feeds/"+id, {
             link:url,
