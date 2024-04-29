@@ -1,5 +1,6 @@
 import {PUBLIC_API} from "$env/static/public";
 import axios from "./axiosWrap.js";
+import {APIError} from "./APIError"
 
 //todo these should wrap the http errors and add context
 //todo the ui needs a generic top level error handler (should just toast with the error)
@@ -12,10 +13,12 @@ export type Feed = {
 }
 
 export type ArticleEntry = {
+    id:string,
     title:string,
     unread:boolean,
     date:Date
 }
+export type ArticleFactory = () => Promise<ArticleEntry[]>
 
 export const getFeeds = async () => {
     try {
@@ -88,5 +91,24 @@ export const updateFeed = async (id:string, {url, title, shortTitle, description
 
     } catch (e) {
         throw new APIError("Failed to update feed")
+    }
+}
+
+export const getArticles = async (feedid:string):Promise<ArticleEntry[]> => {
+    try {
+        const res = await axios.get(PUBLIC_API + `/feeds/${feedid}/articles`)
+        let articles:ArticleEntry[] = []
+        res.data.forEach((article:any) => {
+            articles.push({
+                id: article._id,
+                date: new Date(article.pubDate),
+                title: article.title,
+                unread: article.unread
+            })
+        })
+        return articles
+    } catch (e){
+        console.log(e)
+        throw new APIError("Failed to get articles")
     }
 }

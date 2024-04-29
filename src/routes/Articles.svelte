@@ -1,5 +1,7 @@
-<script>
+<script lang="ts">
     import ArticlesEntry from "./ArticlesEntry.svelte";
+	import type {ArticleFactory} from "$lib/api/feeds";
+	export let articleFactory:ArticleFactory
 </script>
 
 <style>
@@ -27,8 +29,14 @@
         <th id="date">Date</th>
     </tr>
     </thead>
+
     <tbody>
-        <ArticlesEntry articleEntry={{title:"Test, warning this is a test, cease panic this is not real, do not avert thine eyes from this divine test",unread:true,date:new Date()}} />
-        <ArticlesEntry articleEntry={{title:"Test, warning this is a test, cease panic this is not real, do not avert thine eyes from this divine test",unread:true,date:new Date()}} />
+    {#await articleFactory()}
+        <p>Loading...</p>
+    {:then articles}
+        {#each articles as article}
+            <ArticlesEntry articleEntry={article} />
+        {/each}
+    {/await}
     </tbody>
 </table>

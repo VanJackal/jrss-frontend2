@@ -25,9 +25,25 @@
 
 </style>
 
-<script>
+<script lang="ts">
     import Feeds from "./Feeds.svelte";
     import Articles from "./Articles.svelte";
+    import {type ArticleFactory, getArticles} from "$lib/api/feeds.js"
+    import {selected} from "$lib/stores/feeds.js";
+
+    let articleFactory:ArticleFactory;
+
+	selected.subscribe((id) => {
+	    if(id) {
+			console.log("factory changed")
+			articleFactory = async () => {
+			    return getArticles(id)
+			}
+        } else {
+            articleFactory = async () => []
+        }
+	})
+
 </script>
 
 
@@ -39,7 +55,7 @@
         <Feeds/>
     </div>
     <div id="articles-list">
-        <Articles/>
+        <Articles articleFactory={articleFactory}/>
     </div>
     <div id="article">
 
