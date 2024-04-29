@@ -8,7 +8,7 @@
 	import RemoveFeedDialog from "./RemoveFeedDialog.svelte";
 	import {Pencil} from "lucide-svelte";
 	import EditFeedDialog from "./EditFeedDialog.svelte";
-	import {selected} from "$lib/stores/feeds";
+	import {feedId} from "$lib/stores/feeds";
 
 	//todo switch this to an enum maybe
     let showAddFeed:boolean = false;
@@ -48,4 +48,4 @@
 
 <AddFeedDialog on:feedAdded={refreshFeeds} bind:showDialog={showAddFeed}/>
 <RemoveFeedDialog on:feedRemoved={refreshFeeds} bind:showDialog={showRemoveFeed}/>
-<EditFeedDialog on:feedEdited={refreshFeeds} bind:showDialog={showEditFeed} selected={$selected}/>
+<EditFeedDialog on:feedEdited={refreshFeeds} bind:showDialog={showEditFeed} selected={$feedId}/>

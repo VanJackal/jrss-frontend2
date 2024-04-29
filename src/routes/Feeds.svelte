@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {selected} from "$lib/stores/feeds.js";
+    import {feedId} from "$lib/stores/feeds.js";
 	import {getFeeds, updateFeeds} from "$lib/api/feeds.js";
     import FeedsHeader from "./FeedsHeader.svelte";
 
@@ -8,7 +8,7 @@
 
     const handleClick = (id:string) => {
         return () => {
-            selected.set(id);
+            feedId.set(id);
         }
     }
 
@@ -43,7 +43,7 @@
         {#await feeds}
         {:then feeds}
             {#each feeds as feed}
-                <div class="feed-item" class:selected={feed._id === $selected} on:click={handleClick(feed._id)}>
+                <div class="feed-item" class:selected={feed._id === $feedId} on:click={handleClick(feed._id)}>
                     <div class="title">
                         {feed.title}
                     </div>

@@ -29,11 +29,11 @@
     import Feeds from "./Feeds.svelte";
     import Articles from "./Articles.svelte";
     import {type ArticleFactory, getArticles} from "$lib/api/feeds.js"
-    import {selected} from "$lib/stores/feeds.js";
+    import {feedId} from "$lib/stores/feeds.js";
 
     let articleFactory:ArticleFactory;
 
-	selected.subscribe((id) => {
+	feedId.subscribe((id) => {
 	    if(id) {
 			articleFactory = async () => {
 			    return getArticles(id)
