@@ -35,7 +35,6 @@
 
 	selected.subscribe((id) => {
 	    if(id) {
-			console.log("factory changed")
 			articleFactory = async () => {
 			    return getArticles(id)
 			}
