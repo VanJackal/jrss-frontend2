@@ -1,7 +1,7 @@
 <script lang="ts">
     import ArticlesEntry from "./ArticlesEntry.svelte";
-	import type {ArticleFactory} from "$lib/api/feeds";
-	export let articleFactory:ArticleFactory
+	import type {Feed} from "$lib/api/Feed";
+	export let feed:Feed
 </script>
 
 <style>
@@ -31,7 +31,7 @@
     </thead>
 
     <tbody>
-    {#await articleFactory()}
+    {#await feed.getArticles()}
         <p>Loading...</p>
     {:then articles}
         {#each articles as article}

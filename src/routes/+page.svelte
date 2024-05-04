@@ -29,7 +29,7 @@
     import Feeds from "./Feeds.svelte";
     import Articles from "./Articles.svelte";
     import {type ArticleFactory, getArticles} from "$lib/api/feeds.js"
-    import {feedId} from "$lib/stores/feeds.js";
+	import {feedId, selectedFeed} from "$lib/stores/feeds.js";
 
     let articleFactory:ArticleFactory;
 
@@ -54,7 +54,7 @@
         <Feeds/>
     </div>
     <div id="articles-list">
-        <Articles articleFactory={articleFactory}/>
+        <Articles feed={$selectedFeed}/>
     </div>
     <div id="article">
 
