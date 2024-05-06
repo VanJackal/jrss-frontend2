@@ -1,5 +1,5 @@
 import type {ArticleEntry} from "$lib/api/feeds";
-import {type FullArticle, getArticle, setUnread} from "$lib/api/articles";
+import {type FullArticle, getArticle, setRead} from "$lib/api/articles";
 
 export class Article {
 	private fullArticle:FullArticle|null;
@@ -17,7 +17,7 @@ export class Article {
 		return this.entry.read
 	}
 	public async setRead(read:boolean) {
-		await setUnread(this.entry.id, read)
+		await setRead(this.entry.id, read)
 		this.entry.read = read
 	}
 

@@ -27,9 +27,9 @@ export async function getArticle(id:string):Promise<FullArticle> {
 	}
 }
 
-export const setUnread = async (id:string, unread:boolean) => {
+export const setRead = async (id:string, read:boolean) => {
 	return axios.patch(PUBLIC_API + `/articles/${id}`,{
-		unread:unread
+		read:read
 	})
 }
 
