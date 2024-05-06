@@ -1,8 +1,9 @@
 
 <script lang="ts">
-    import type {ArticleEntry} from "$lib/api/feeds";
 
-    export let articleEntry:ArticleEntry;
+    import {Article} from "$lib/api/Article";
+
+	export let article:Article;
 
     const stringFromDate = (date:Date) => {
         return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
@@ -38,7 +39,7 @@
 </style>
 
 <tr>
-    <td class="title"><div title={articleEntry.title} class="title-container">{articleEntry.title}</div></td>
-    <td class="center">{articleEntry.unread?"O":"X"}</td>
-    <td class="center">{stringFromDate(articleEntry.date)}</td>
+    <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
+    <td class="center">{article.getUnread()?"O":"X"}</td>
+    <td class="center">{stringFromDate(article.getDate())}</td>
 </tr>

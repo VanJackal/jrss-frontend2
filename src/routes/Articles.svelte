@@ -35,7 +35,7 @@
         <p>Loading...</p>
     {:then articles}
         {#each articles as article}
-            <ArticlesEntry articleEntry={article} />
+            <ArticlesEntry article={article} />
         {/each}
     {/await}
     </tbody>
