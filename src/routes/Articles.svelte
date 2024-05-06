@@ -1,6 +1,8 @@
 <script lang="ts">
     import ArticlesEntry from "./ArticlesEntry.svelte";
 	import type {Feed} from "$lib/api/Feed";
+	import {selectedArticle} from "$lib/stores/articleStore";
+
 	export let feed:Feed
 </script>
 
@@ -35,7 +37,11 @@
         <p>Loading...</p>
     {:then articles}
         {#each articles as article}
-            <ArticlesEntry article={article} />
+            <ArticlesEntry
+                    on:click={() => {$selectedArticle = article}}
+                    article={article}
+                    selected={article.getID() === $selectedArticle?.getID()}
+            />
         {/each}
     {/await}
     </tbody>

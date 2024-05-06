@@ -110,7 +110,7 @@ export const getArticles = async (feedid:string):Promise<ArticleEntry[]> => {
         })
         return articles
     } catch (e){
-        console.log(e)
+        console.error(e)
         throw new APIError("Failed to get articles")
     }
 }

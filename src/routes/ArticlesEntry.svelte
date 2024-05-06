@@ -4,6 +4,7 @@
     import {Article} from "$lib/api/Article";
 
 	export let article:Article;
+	export let selected:boolean;
 
     const stringFromDate = (date:Date) => {
         return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
@@ -35,10 +36,18 @@
     }
     tr {
         width: 100%;
+        border-bottom: var(--lighter-background) 1px solid;
+    }
+    tr:hover, tr.selected {
+        background: var(--light-background)
+    }
+
+    tr:hover {
+        cursor:pointer
     }
 </style>
 
-<tr>
+<tr on:click class:selected = {selected}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
     <td class="center">{article.getUnread()?"O":"X"}</td>
     <td class="center">{stringFromDate(article.getDate())}</td>
