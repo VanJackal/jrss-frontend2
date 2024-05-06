@@ -2,8 +2,22 @@
     import ArticlesEntry from "./ArticlesEntry.svelte";
 	import type {Feed} from "$lib/api/Feed";
 	import {selectedArticle} from "$lib/stores/articleStore";
+	import type {Article} from "$lib/api/Article";
 
 	export let feed:Feed
+
+	/**
+     * handle a click on an article by setting it to read and
+     * set the article as selected
+	 * @param article article to act on
+	 */
+	const handleClick = (article:Article) => {
+		$selectedArticle = article//select article
+        if(!article.getRead()) {// set read
+			console.log("Setting read")
+			article.setRead(true)
+        }
+    }
 </script>
 
 <style>
@@ -38,7 +52,7 @@
     {:then articles}
         {#each articles as article}
             <ArticlesEntry
-                    on:click={() => {$selectedArticle = article}}
+                    on:click={() => {handleClick(article)}}
                     article={article}
                     selected={article.getID() === $selectedArticle?.getID()}
             />
