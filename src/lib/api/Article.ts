@@ -13,12 +13,12 @@ export class Article {
 	public getTitle() {
 		return this.entry.title
 	}
-	public getUnread(){
-		return this.entry.unread
+	public getRead(){
+		return this.entry.read
 	}
-	public async setUnread(unread:boolean) {
-		await setUnread(this.entry.id, unread)
-		this.entry.unread = unread
+	public async setRead(read:boolean) {
+		await setUnread(this.entry.id, read)
+		this.entry.read = read
 	}
 
 	public getDate() {

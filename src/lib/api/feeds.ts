@@ -15,7 +15,7 @@ export type FeedDetails = {
 export type ArticleEntry = {
     id:string,
     title:string,
-    unread:boolean,
+    read:boolean,
     date:Date
 }
 export type ArticleFactory = () => Promise<ArticleEntry[]>
@@ -105,7 +105,7 @@ export const getArticles = async (feedid:string):Promise<ArticleEntry[]> => {
                 id: article._id,
                 date: new Date(article.pubDate),
                 title: article.title,
-                unread: article.unread
+                read: article.read
             })
         })
         return articles

@@ -49,6 +49,6 @@
 
 <tr on:click class:selected = {selected}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
-    <td class="center">{article.getUnread()?"O":"X"}</td>
+    <td class="center">{article.getRead()?"X":"O"}</td>
     <td class="center">{stringFromDate(article.getDate())}</td>
 </tr>

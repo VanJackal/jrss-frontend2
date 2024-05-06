@@ -18,7 +18,7 @@ export async function getArticle(id:string):Promise<FullArticle> {
 			enclosure: undefined,
 			id: res._id,
 			title: res.title,
-			unread: res.unread,
+			read: res.read,
 			uuid: res.uuid
 		}
 	} catch(e) {
