@@ -20,6 +20,7 @@
         background: var(--background);
         color: var(--text);
         font-family: sans-serif;
+        overflow: hidden;
     }
 </style>
 <svelte:window on:error={handleError}/>
