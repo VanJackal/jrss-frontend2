@@ -1,24 +1,50 @@
 import type {ArticleEntry} from "$lib/api/feeds";
 import {type FullArticle, getArticle, setRead} from "$lib/api/articles";
+import {ReadState} from "$lib/api/ReadState";
 
 export class Article {
 	private fullArticle:FullArticle|null;
+	private read:ReadState
 	public constructor(private entry:ArticleEntry) {
 		this.fullArticle = null;
+		this.read = new ReadState(entry.read)
 	}
 
+	/**
+	 * get the id of the article
+	 */
 	public getID() {
 		return this.entry.id
 	}
+
+	/**
+	 * get the articles title
+	 */
 	public getTitle() {
 		return this.entry.title
 	}
+
+	/**
+	 * get whether the article has been read
+	 */
 	public getRead(){
-		return this.entry.read
+		return this.read.get()
 	}
+
+	/**
+	 * set whether the article has been read
+	 * @param read true for when the article is read
+	 */
 	public async setRead(read:boolean) {
 		await setRead(this.entry.id, read)
-		this.entry.read = read
+		this.read.set(read)
+	}
+
+	/**
+	 * get the state handler for the read status of the article
+	 */
+	public getReadState():ReadState {
+		return this.read
 	}
 
 	public getDate() {
@@ -32,6 +58,9 @@ export class Article {
 		return this.fullArticle
 	}
 
+	/**
+	 * get the articles description / contents
+	 */
 	public async getDescription() {
 		return (await this.getFullArticle()).description
 	}

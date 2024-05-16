@@ -6,6 +6,9 @@
 	export let article:Article;
 	export let selected:boolean;
 
+	let read = article.getRead()
+    article.getReadState().subscribe((isRead)=>{read = isRead})//update ui when according to the read state
+
     const stringFromDate = (date:Date) => {
         return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
     }
@@ -49,6 +52,6 @@
 
 <tr on:click class:selected = {selected}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
-    <td class="center">{article.getRead()?"X":"O"}</td>
+    <td class="center" on:click|stopPropagation={() => {article.setRead(!article.getRead())}}>{read?"X":"O"}</td>
     <td class="center">{stringFromDate(article.getDate())}</td>
 </tr>
