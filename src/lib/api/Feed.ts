@@ -9,7 +9,7 @@ export abstract class Feed {
 	static async fetchFeed(feedId:string):Promise<Feed> {
 		const feed:FeedDetails|null = await getFeed(feedId);
 
-		if (!feed) {
+		if (!feed || feedId.length <= 0) {
 			// set to null object if we dont have a feed
 			return new NullFeed()
 		} else {

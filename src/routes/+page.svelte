@@ -40,7 +40,7 @@
     let articleFactory:ArticleFactory;
 
 	feedId.subscribe((id) => {
-	    if(id) {
+	    if(id && id.length > 0) {
 			articleFactory = async () => {
 			    return getArticles(id)
 			}

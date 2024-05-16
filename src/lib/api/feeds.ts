@@ -97,6 +97,7 @@ export const updateFeed = async (id:string, {url, title, shortTitle, description
 }
 
 export const getArticles = async (feedid:string):Promise<ArticleEntry[]> => {
+    if (feedid == null || feedid.length == 0) throw new APIError("Invalid feed id")
     try {
         const res = await axios.get(PUBLIC_API + `/feeds/${feedid}/articles`)
         let articles:ArticleEntry[] = []

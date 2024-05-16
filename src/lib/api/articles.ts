@@ -7,6 +7,7 @@ export type FullArticle = ArticleEntry & {
 	description:string,
 	enclosure:any,
 	uuid:string,
+	link?:string
 }
 
 export async function getArticle(id:string):Promise<FullArticle> {
@@ -19,7 +20,8 @@ export async function getArticle(id:string):Promise<FullArticle> {
 			id: res._id,
 			title: res.title,
 			read: res.read,
-			uuid: res.uuid
+			uuid: res.uuid,
+			link: res.link ?? null
 		}
 	} catch(e) {
 		console.error(e)

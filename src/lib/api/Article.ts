@@ -72,4 +72,8 @@ export class Article {
 	public async getEnclosure() {
 		return (await this.getFullArticle()).enclosure
 	}
+
+	public async getLink() {
+		return (await this.getFullArticle()).link
+	}
 }
