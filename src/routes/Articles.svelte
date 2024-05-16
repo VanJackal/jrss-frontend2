@@ -35,28 +35,36 @@
     tbody {
         width: 100%;
     }
+
+    .container {
+        height: 100%;
+
+        overflow: scroll;
+    }
 </style>
 
-<table>
-    <thead>
-    <tr>
-        <th id="title">Title</th>
-        <th id="read">Read</th>
-        <th id="date">Date</th>
-    </tr>
-    </thead>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th id="title">Title</th>
+            <th id="read">Read</th>
+            <th id="date">Date</th>
+        </tr>
+        </thead>
 
-    <tbody>
-    {#await feed.getArticles()}
-        <p>Loading...</p>
-    {:then articles}
-        {#each articles as article}
-            <ArticlesEntry
-                    on:click={() => {handleClick(article)}}
-                    article={article}
-                    selected={article.getID() === $selectedArticle?.getID()}
-            />
-        {/each}
-    {/await}
-    </tbody>
-</table>
+        <tbody>
+        {#await feed.getArticles()}
+            <p>Loading...</p>
+        {:then articles}
+            {#each articles as article}
+                <ArticlesEntry
+                        on:click={() => {handleClick(article)}}
+                        article={article}
+                        selected={article.getID() === $selectedArticle?.getID()}
+                />
+            {/each}
+        {/await}
+        </tbody>
+    </table>
+</div>
