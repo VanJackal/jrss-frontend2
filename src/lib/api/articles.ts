@@ -3,9 +3,15 @@ import axios from "./axiosWrap.js";
 import {APIError} from "./APIError"
 import type {ArticleEntry} from "$lib/api/feeds";
 
+type Enclosure = {
+	url:string,
+	length?:number,
+	type?:string
+}
+
 export type FullArticle = ArticleEntry & {
 	description:string,
-	enclosure:any,
+	enclosure?:Enclosure,
 	uuid:string,
 	link?:string
 }
@@ -16,7 +22,11 @@ export async function getArticle(id:string):Promise<FullArticle> {
 		return {
 			date: new Date(res.date),
 			description: res.description,
-			enclosure: undefined,
+			enclosure: res.enclosure ? {
+				url: res.enclosure.url,
+				length: res.enclosure.length,
+				type: res.enclosure.type
+			} : undefined,
 			id: res._id,
 			title: res.title,
 			read: res.read,
