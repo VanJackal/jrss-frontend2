@@ -13,6 +13,13 @@
 </script>
 
 <style>
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+    a:hover {
+        text-decoration: underline solid var(--lighter-background);
+    }
     .container {
         border-top: var(--lighter-background) 1px solid;
         height:100%;
@@ -42,7 +49,11 @@
     <div class="container">
         <div class="header">
             <h2 class="title">
-                {article.getTitle()}
+                {#await article.getLink()}
+                    <a>{article.getTitle()}</a>
+                {:then link}
+                    <a href={link??""}>{article.getTitle()}</a>
+                {/await}
             </h2>
             <div class="date">Posted: {article.getDate().toDateString()}</div>
         </div>
