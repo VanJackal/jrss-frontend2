@@ -2,6 +2,7 @@
     import {Article} from "$lib/api/Article";
 	import Loading from "$lib/components/Loading.svelte";
 	import * as sanitizeHtml from 'sanitize-html'
+	import Enclosure from "./Enclosure.svelte";
 
     export let article:Article
 
@@ -59,6 +60,13 @@
         </div>
 
         <div class="content">
+            {#await article.getEnclosure()}
+                <Loading/>
+            {:then enclosure}
+                {#if enclosure != null}
+                    <Enclosure enclosure={enclosure}/>
+                {/if}
+            {/await}
             {#await article.getDescription()}
                 <Loading/>
             {:then desc}

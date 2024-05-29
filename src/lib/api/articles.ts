@@ -3,7 +3,7 @@ import axios from "./axiosWrap.js";
 import {APIError} from "./APIError"
 import type {ArticleEntry} from "$lib/api/feeds";
 
-type Enclosure = {
+export type Enclosure = {
 	url:string,
 	length?:number,
 	type?:string
