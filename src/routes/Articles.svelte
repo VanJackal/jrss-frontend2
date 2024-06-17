@@ -18,6 +18,44 @@
 			article.setRead(true)
         }
     }
+
+	let sort = sortDate
+
+	// * Sorting Functions
+	function sortDate(a:Article, b:Article) {
+		let dA = a.getDate()
+        let dB = b.getDate()
+        if (dA == dB) {
+			return 0
+        } else if (dA < dB) {
+			return -1
+        } else {
+			return 1
+        }
+    }
+
+	function sortTitle(a:Article, b:Article) {
+		return a.getTitle().localeCompare(b.getTitle())
+    }
+
+	function sortRead(a:Article, b:Article) {
+		let dA = a.getRead()
+		let dB = b.getRead()
+		if (dA == dB) {
+			return 0
+		} else if (dA) {
+			return 1
+		} else {
+			return -1
+		}
+	}
+
+	function desc(func) {
+		return (a, b) => {
+			return func(a,b) * -1
+        }
+    }
+
 </script>
 
 <style>
@@ -47,9 +85,9 @@
     <table>
         <thead>
         <tr>
-            <th id="title">Title</th>
-            <th id="read">Read</th>
-            <th id="date">Date</th>
+            <th id="title" on:click={() => {sort = sortTitle}}>Title</th>
+            <th id="read" on:click={() => {sort = sortRead}}>Read</th>
+            <th id="date" on:click={() => {sort = sortDate}}>Date</th>
         </tr>
         </thead>
 
@@ -57,7 +95,7 @@
         {#await feed.getArticles()}
             <p>Loading...</p>
         {:then articles}
-            {#each articles as article}
+            {#each articles.sort(sort) as article}
                 <ArticlesEntry
                         on:click={() => {handleClick(article)}}
                         article={article}
