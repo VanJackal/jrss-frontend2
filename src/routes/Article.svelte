@@ -1,12 +1,12 @@
 <script lang="ts">
     import {Article} from "$lib/api/Article";
 	import Loading from "$lib/components/Loading.svelte";
-	import * as sanitizeHtml from 'sanitize-html'
+	import sanitizeHtml from 'sanitize-html'
 	import Enclosure from "./Enclosure.svelte";
 
     export let article:Article
 
-    const sanitize = (html) => {
+    const sanitize = (html:string) => {
         return sanitizeHtml(html,{
 			allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img'])
         })
@@ -51,7 +51,7 @@
         <div class="header">
             <h2 class="title">
                 {#await article.getLink()}
-                    <a>{article.getTitle()}</a>
+                    <span>{article.getTitle()}</span>
                 {:then link}
                     <a href={link??""}>{article.getTitle()}</a>
                 {/await}

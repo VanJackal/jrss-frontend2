@@ -2,12 +2,26 @@
 <script lang="ts">
 
     import {Article} from "$lib/api/Article";
+    import {beforeUpdate} from "svelte";
 
-	export let article:Article;
+    export let article:Article;
 	export let selected:boolean;
 
-	let read = article.getRead()
-    article.getReadState().subscribe((isRead)=>{read = isRead})//update ui when according to the read state
+	let read:boolean;
+
+    //setup for auto unsub
+    let cb:any = null; // callback currently subscribing to read changes
+    let prevArticle:Article;
+
+    $: {
+        if (cb != null) {
+            prevArticle.getReadState().unsubscribe(cb)
+        }
+        cb = article.getReadState().subscribe((isRead)=>{read = isRead})//update ui when according to the read state
+        prevArticle = article;
+        read = article.getRead()
+        console.debug("updated article subscribers")
+    }
 
     const stringFromDate = (date:Date) => {
         return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;

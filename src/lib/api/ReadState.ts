@@ -17,6 +17,15 @@ export class ReadState {
 	 */
 	public subscribe(callback:ReadStateCallback){
 		this.subscribers.push(callback)
+		return callback
+	}
+
+	/**
+	 * remove the callback from the subscribers
+	 * @param callback callback to remove
+	 */
+	public unsubscribe(callback:ReadStateCallback):void {
+		this.subscribers.splice(this.subscribers.indexOf(callback),1)
 	}
 
 	/**

@@ -22,7 +22,7 @@
 	let sort = sortDate
 
 	// * Sorting Functions
-	function sortDate(a:Article, b:Article) {
+	function sortDate(a:Article, b:Article):number {
 		let dA = a.getDate()
         let dB = b.getDate()
         if (dA == dB) {
@@ -34,11 +34,11 @@
         }
     }
 
-	function sortTitle(a:Article, b:Article) {
+	function sortTitle(a:Article, b:Article):number {
 		return a.getTitle().localeCompare(b.getTitle())
     }
 
-	function sortRead(a:Article, b:Article) {
+	function sortRead(a:Article, b:Article):number {
 		let dA = a.getRead()
 		let dB = b.getRead()
 		if (dA == dB) {
@@ -50,8 +50,8 @@
 		}
 	}
 
-	function desc(func) {
-		return (a, b) => {
+	function desc(func:Function) {
+		return (a:Article, b:Article) => {
 			return func(a,b) * -1
         }
     }
