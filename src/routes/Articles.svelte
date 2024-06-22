@@ -5,6 +5,20 @@
 	import type {Article} from "$lib/api/Article";
 
 	export let feed:Feed
+    type Sorter = (a:Article,b:Article)=>number
+
+    let sortType = sortDate
+    let descending:boolean = true
+    let sort = desc(sortDate)
+    function setSort(sortFunc:Sorter) {
+        if(sortType === sortFunc) {
+            descending = !descending // swap the order if the user clicks the same sorter
+        } else {
+            descending = false
+            sortType = sortFunc
+        }
+        sort = !descending? sortType : desc(sortType)
+    }
 
 	/**
      * handle a click on an article by setting it to read and
@@ -18,8 +32,6 @@
 			article.setRead(true)
         }
     }
-
-	let sort = sortDate
 
 	// * Sorting Functions
 	function sortDate(a:Article, b:Article):number {
@@ -56,6 +68,7 @@
         }
     }
 
+
 </script>
 
 <style>
@@ -85,9 +98,9 @@
     <table>
         <thead>
         <tr>
-            <th id="title" on:click={() => {sort = sortTitle}}>Title</th>
-            <th id="read" on:click={() => {sort = sortRead}}>Read</th>
-            <th id="date" on:click={() => {sort = sortDate}}>Date</th>
+            <th id="title" on:click={() => {setSort(sortTitle)}}>Title</th>
+            <th id="read" on:click={() => {setSort(sortRead)}}>Read</th>
+            <th id="date" on:click={() => {setSort(sortDate)}}>Date</th>
         </tr>
         </thead>
 
