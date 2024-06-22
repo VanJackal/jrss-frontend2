@@ -23,8 +23,11 @@
         console.debug("updated article subscribers")
     }
 
+    function padNum(num:number):string {
+        return num.toString().padStart(2,"0")
+    }
     const stringFromDate = (date:Date) => {
-        return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+        return `${padNum(date.getFullYear())}/${padNum(date.getMonth() + 1)}/${padNum(date.getDate())}`;
     }
 
 </script>
@@ -51,6 +54,13 @@
         position:relative;
         width: 100%;
     }
+
+    .date {
+        padding-right: 0.5em;
+    }
+    .title-container {
+        padding-left: 0.2em;
+    }
     tr {
         width: 100%;
         border-bottom: var(--lighter-background) 1px solid;
@@ -67,5 +77,5 @@
 <tr on:click class:selected = {$selected?.getID() === article.getID()}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
     <td class="center" on:click|stopPropagation={() => {article.setRead(!article.getRead())}}>{read?"X":"O"}</td>
-    <td class="center">{stringFromDate(article.getDate())}</td>
+    <td class="center date">{stringFromDate(article.getDate())}</td>
 </tr>
