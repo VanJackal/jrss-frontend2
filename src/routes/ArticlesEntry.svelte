@@ -2,10 +2,10 @@
 <script lang="ts">
 
     import {Article} from "$lib/api/Article";
-    import {beforeUpdate} from "svelte";
+    import {type Writable} from "svelte/store";
 
     export let article:Article;
-	export let selected:boolean;
+    export let selected:Writable<Article>;
 
 	let read:boolean;
 
@@ -64,7 +64,7 @@
     }
 </style>
 
-<tr on:click class:selected = {selected}>
+<tr on:click class:selected = {$selected?.getID() === article.getID()}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
     <td class="center" on:click|stopPropagation={() => {article.setRead(!article.getRead())}}>{read?"X":"O"}</td>
     <td class="center">{stringFromDate(article.getDate())}</td>

@@ -99,7 +99,7 @@
                 <ArticlesEntry
                         on:click={() => {handleClick(article)}}
                         article={article}
-                        selected={article.getID() === $selectedArticle?.getID()}
+                        selected={selectedArticle}
                 />
             {/each}
         {/await}
