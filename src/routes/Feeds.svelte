@@ -2,6 +2,7 @@
     import {feedId} from "$lib/stores/feeds.js";
 	import {getFeeds, updateFeeds} from "$lib/api/feeds.js";
     import FeedsHeader from "./FeedsHeader.svelte";
+	import {ReadChanged} from "$lib/events/events";
 
     let feeds: Promise<any[]>;
 
@@ -14,8 +15,14 @@
 
     function fetchFeeds(){
 		updateFeeds()
-        feeds = getFeeds()
+        updateFeedsState()
     }
+
+	function updateFeedsState() {
+		feeds = getFeeds()
+    }
+
+	ReadChanged.subscribe(updateFeedsState)
 
     fetchFeeds()
 </script>

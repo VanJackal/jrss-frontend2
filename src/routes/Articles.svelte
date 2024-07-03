@@ -3,6 +3,7 @@
 	import type {Feed} from "$lib/api/Feed";
 	import {selectedArticle} from "$lib/stores/articleStore";
 	import type {Article} from "$lib/api/Article";
+	import {ReadChanged} from "$lib/events/events";
 
 	export let feed:Feed
     type Sorter = (a:Article,b:Article)=>number
@@ -29,7 +30,9 @@
 		$selectedArticle = article//select article
         if(!article.getRead()) {// set read
 			console.log("Setting read")
-			article.setRead(true)
+			article.setRead(true).then(() => {
+			    ReadChanged.notify()
+			})
         }
     }
 

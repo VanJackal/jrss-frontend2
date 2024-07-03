@@ -3,6 +3,7 @@
 
     import {Article} from "$lib/api/Article";
     import {type Writable} from "svelte/store";
+	import {ReadChanged} from "$lib/events/events";
 
     export let article:Article;
     export let selected:Writable<Article>;
@@ -28,6 +29,12 @@
     }
     const stringFromDate = (date:Date) => {
         return `${padNum(date.getFullYear())}/${padNum(date.getMonth() + 1)}/${padNum(date.getDate())}`;
+    }
+
+	function onReadClick() {
+		article.setRead(!article.getRead()).then(() => {
+		    ReadChanged.notify()
+		})
     }
 
 </script>
@@ -76,6 +83,6 @@
 
 <tr on:click class:selected = {$selected?.getID() === article.getID()}>
     <td class="title"><div title={article.getTitle()} class="title-container">{article.getTitle()}</div></td>
-    <td class="center" on:click|stopPropagation={() => {article.setRead(!article.getRead())}}>{read?"X":"O"}</td>
+    <td class="center" on:click|stopPropagation={() => {onReadClick()}}>{read?"X":"O"}</td>
     <td class="center date">{stringFromDate(article.getDate())}</td>
 </tr>
