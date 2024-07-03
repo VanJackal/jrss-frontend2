@@ -4,7 +4,7 @@
     import FeedsHeader from "./FeedsHeader.svelte";
 	import {ReadChanged} from "$lib/events/events";
 
-    let feeds: Promise<any[]>;
+    let feeds: Promise<any[]> = getFeeds();
 
 
     const handleClick = (id:string) => {
@@ -13,8 +13,8 @@
         }
     }
 
-    function fetchFeeds(){
-		updateFeeds()
+    async function fetchFeeds(){
+		await updateFeeds()
         updateFeedsState()
     }
 
