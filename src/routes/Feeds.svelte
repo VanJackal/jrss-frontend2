@@ -42,6 +42,14 @@
     .unread {
         color: var(--accent)
     }
+    .feeds-list {
+        overflow: auto;
+    }
+    .feeds {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
 </style>
 
 <div class="feeds">
