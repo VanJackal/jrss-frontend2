@@ -41,9 +41,10 @@ export interface IFeeds {
 
     /**
      * update a feeds details to a new set of details,
+     * @param id id of the feed to update
      * @param details details to update to
      */
-    updateFeed(details:FeedDetails):Promise<void>
+    updateFeed(id:string, details:FeedDetails):Promise<void>
 
     /**
      * get the articles from a feed
