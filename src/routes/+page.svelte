@@ -30,7 +30,7 @@
 </style>
 
 <script lang="ts">
-    import Feeds from "./Feeds.svelte";
+    import FeedsSidebar from "./FeedsSidebar.svelte";
     import Articles from "./Articles.svelte";
     import {type ArticleFactory, getArticles} from "$lib/api/feeds.js"
 	import {feedId, selectedFeed} from "$lib/stores/feeds.js";
@@ -57,7 +57,7 @@
 
     </div>
     <div id="feeds">
-        <Feeds/>
+        <FeedsSidebar/>
     </div>
     <div id="articles-list">
         <Articles feed={$selectedFeed}/>
