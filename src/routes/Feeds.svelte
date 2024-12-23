@@ -3,6 +3,7 @@
 	import {getFeeds, updateFeeds} from "$lib/api/feeds.js";
     import FeedsHeader from "./FeedsHeader.svelte";
 	import {ReadChanged} from "$lib/events/events";
+    import Loading from "$lib/components/Loading.svelte";
 
     let feeds: Promise<any[]> = getFeeds();
 
@@ -56,9 +57,10 @@
     <FeedsHeader refreshFeeds={fetchFeeds}/>
     <div class="feeds-list">
         {#await feeds}
+            <Loading/>
         {:then feeds}
             {#each feeds as feed}
-                <div class="feed-item" class:selected={feed._id === $feedId} on:click={handleClick(feed._id)}>
+                <div class="feed-item" class:selected={feed._id === $feedId} on:keyup on:click={handleClick(feed._id)} role="button" tabindex=0>
                     <div class="title">
                         {feed.title}
                     </div>
