@@ -5,6 +5,8 @@
 	import {ReadChanged} from "$lib/events/events";
     import Loading from "$lib/components/Loading.svelte";
     import FeedsList from "./FeedsList.svelte";
+    import Folder from "./Folder.svelte"
+    import {setContext} from "svelte";
 
     let feeds: Promise<any[]> = getFeeds();
 
@@ -40,6 +42,6 @@
     {#await feeds}
         <Loading/>
     {:then feeds}
-        <FeedsList feeds={feeds} selectedFeed={feedId} handleClick={handleClick}/>
+        <Folder feeds={feeds} selectedFeed={feedId} handleClick={handleClick}/>
     {/await}
 </div>
