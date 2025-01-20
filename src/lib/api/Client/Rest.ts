@@ -1,28 +1,64 @@
-import type {IFeeds} from "$lib/api/routes/IFeeds";
-import {Feeds} from "$lib/api/routes/Feeds";
-import type {AxiosInstance} from "axios";
-import {Articles} from "$lib/api/routes/Articles";
-import type {IArticles} from "$lib/api/routes/IArticles";
+import type {IRest} from "./IRest";
+import axios, {type AxiosInstance, type AxiosRequestConfig } from "axios";
 
 /**
- * @Created 2024-08-26
- * @Brief class containing the top level routes for the api
+ * Rest.ts
+ * @created 2024-10-29
+ * @brief REST client
  */
-export class Rest {
-    public readonly _feedsApi:IFeeds
-    public readonly _articlesApi:IArticles
 
-    constructor(private Axios:AxiosInstance) {
-        this._feedsApi = new Feeds(Axios)
-        this._articlesApi = new Articles(Axios)
+export class Rest implements IRest {
+  private Axios: AxiosInstance;
+
+  constructor(
+    private readonly api: string,
+    axiosInstance: AxiosInstance | null = null
+  ) {
+    if (!axiosInstance) {
+      this.Axios = axios.create({
+        baseURL: api,
+        withCredentials: true,
+      });
+    } else {
+      this.Axios = axiosInstance;
     }
+  }
 
-    get feeds() {
-        return this._feedsApi
-    }
+  private async request(config: AxiosRequestConfig) {
+    return (await this.Axios.request(config)).data;
+  }
 
-    get articles() {
-        return this._articlesApi
-    }
-
+  async get(resource: string) {
+    return this.request({
+      method: "get",
+      url: resource,
+    });
+  }
+  async delete(resource: string) {
+    return this.request({
+      method: "delete",
+      url: resource,
+    });
+  }
+  async put(resource: string, payload: any) {
+    return this.request({
+      method: "put",
+      url: resource,
+      data: payload,
+    });
+  }
+  async post(resource: string, payload: any) {
+    return this.request({
+      method: "post",
+      url: resource,
+      data: payload,
+    });
+  }
+  async patch(resource: string, payload: any) {
+    return this.request({
+      method: "patch",
+      url: resource,
+      data: payload,
+    });
+  }
 }

@@ -12,10 +12,13 @@ export class Client {//todo finish implementation
     private readonly _feedsManager:IFeedsManager
     private readonly _rest:Rest
 
-    constructor(private Axios:AxiosInstance) {
-
+    constructor(private APIRoot:string) {
         this._feedsManager = new FeedsManager(this)
-        this._rest = new Rest(Axios);
+        this._rest = new Rest(APIRoot);
+    }
+
+    public get feeds() {
+        return this._feedsManager;
     }
 
 }
