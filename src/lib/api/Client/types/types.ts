@@ -45,3 +45,7 @@ export type FolderPayload = {
     shortName: string,
     parent: string
 }
+
+export type NewArticlesCountPayload = {
+    new:number
+}
