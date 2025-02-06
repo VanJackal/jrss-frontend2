@@ -21,4 +21,8 @@ export class Client {//todo finish implementation
         return this._feedsManager;
     }
 
+    public get rest(){
+        return this._rest;
+    }
+
 }
